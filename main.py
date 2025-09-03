@@ -222,7 +222,7 @@ def scrape_tweets(url, filename, email, username, password):
         tweets_data = []
         seen_tweet_ids = set()
         scroll_count = 0
-        max_scrolls = 80
+        max_scrolls = 3
         scroll_pause_time = 8
         last_height = driver.execute_script("return window.pageYOffset")
 
