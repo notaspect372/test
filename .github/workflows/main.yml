@@ -1,8 +1,10 @@
 name: Run Hardcoded X Scraper
 
 on:
-  workflow_dispatch:
   repository_dispatch:
+    types: [run_x_scraper]  
+  workflow_dispatch:
+
 
 permissions:
   contents: write
