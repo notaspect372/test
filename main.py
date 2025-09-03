@@ -14,14 +14,20 @@ import os
 # near init_driver()
 def init_driver():
     options = uc.ChromeOptions()
-    if os.getenv("HEADLESS", "1") == "1":
-        options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-blink-features=AutomationControlled")
-    driver = uc.Chrome(options=options)
+
+    # 👇 force matching driver for Chrome 139 on the GitHub runner
+    try:
+        driver = uc.Chrome(options=options, version_main=139)
+    except Exception:
+        # fallback (if runner updates)
+        driver = uc.Chrome(options=options, version_main=140)
     return driver
+
 
 def save_cookies(driver, filename="cookies.json"):
     """Save cookies to a file"""
